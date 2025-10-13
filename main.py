@@ -1,24 +1,40 @@
+"""OpenRouter + LangChain (minimal)"""
 import os
 
 from dotenv import load_dotenv
-
-load_dotenv()
-
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-
-# Load API key from environment variable
-API_KEY = os.getenv("OPENROUTER_API_KEY")
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
 
 
 def main():
-    print("Hello from langchain-course!")
-    print("OpenRouter Base URL:", OPENROUTER_BASE_URL)
-    if API_KEY:
-        print(
-            "OpenRouter API Key:", "***" + API_KEY[-4:]
-        )  # Hide most of the key for security
-    else:
-        print("OpenRouter API Key: Not found - please check your .env file")
+    """
+    Main function to run the LangChain example.
+    """
+    load_dotenv()
+    key = os.getenv("OPENROUTER_API_KEY")
+    if not key:
+        raise RuntimeError("Missing OPENROUTER_API_KEY in .env")
+
+    llm = ChatOpenAI(
+        api_key=key,
+        base_url="https://openrouter.ai/api/v1",
+        model="openai/gpt-4o",
+        temperature=0.7,
+    )
+
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "You are a helpful assistant. Think step by step when asked."),
+            ("human", "Question: {q}\nAnswer: Let's think step by step."),
+        ]
+    )
+
+    chain = prompt | llm
+
+    question = "What NFL team won the Super Bowl in the year Justin Beiber was born?"
+    response = chain.invoke({"q": question})
+
+    print(response.content)
 
 
 if __name__ == "__main__":
