@@ -41,9 +41,12 @@ def main():
         temperature=0.7,
     )
 
-    # ---- PromptTemplate example (single variable: topic) ----
-    pt = PromptTemplate(input_variables=["topic"], template="ช่วยอธิบายเกี่ยวกับ {topic} ใน 3 ประโยค")
-    prompt_text = pt.format(topic="Machine Learning")
+    # ---- PromptTemplate example (multiple variables: topic, length) ----
+    pt = PromptTemplate(
+        input_variables=["topic", "length"],
+        template="สรุปเรื่องราวเกี่ยวกับ {topic} ในความยาวประมาณ {length} ประโยค",
+    )
+    prompt_text = pt.format(topic="ประวัติศาสตร์ไทยสมัยอยุธยา", length=5)
     resp = llm.invoke(prompt_text)
     print(resp.content)
 
