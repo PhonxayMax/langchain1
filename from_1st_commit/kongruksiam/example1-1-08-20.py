@@ -41,14 +41,12 @@ def main():
         temperature=0.7,
     )
 
-    # ---- PromptTemplate example (single variable: product) ----
+    # ---- PromptTemplate example (multiple variables: product, audience) ----
     pt = PromptTemplate(
-        input_variables=["product"],
-        template="อธิบายเกี่ยวกับ {product} แบบเข้าใจง่าย",
+        input_variables=["product", "audience"],
+        template="อธิบายเกี่ยวกับ {product} สำหรับ {audience}",
     )
-    prompt_text = pt.format(product="iPhone 15")
-
-    # ---- Use the template output with the LLM ----
+    prompt_text = pt.format(product="MacBook Pro", audience="นักศึกษา")
     resp = llm.invoke(prompt_text)
     print(resp.content)
 
