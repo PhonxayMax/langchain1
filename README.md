@@ -31,6 +31,8 @@ Create a `.env` file:
 ```env
 OPENROUTER_API_KEY=your_api_key_here
 OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+NAGA_API_KEY=your_naga_key_here
+NAGA_BASE_URL=https://api.naga.ai/v1
 ```
 
 Get your API key at [openrouter.ai](https://openrouter.ai)
@@ -52,6 +54,7 @@ langchain1/
 ├── id_7_2025-10-17-20-29/        # Jupyter notebooks
 ├── id_21_2025-10-18-19-31/       # Demo notebooks
 ├── jupyter-Notebook/             # Jupyter examples
+│   └── Test-Test/                # RAG demo (OpenRouter + NagaAI)
 ├── requirements.txt              # Dependencies
 ├── pyproject.toml               # Project config
 └── .env                         # Your API keys (create this)
@@ -62,6 +65,7 @@ langchain1/
 - Python 3.12+
 - LangChain (AI framework)
 - OpenRouter (Multi-model API)
+- NagaAI (Embeddings)
 - FAISS (Vector database)
 - HuggingFace (Embeddings)
 
